@@ -1,0 +1,136 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url(https://wallpapersmug.com/download/1920x1080/cb6551/shop-spirite-art.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+h1 {
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+form {
+    width: 500px;
+    height: 50px;
+    max-width: fit-content;
+    color: white;
+    padding: 20px;
+    margin: 50px auto;
+    background-color: black;
+    font-size: 16pt;
+    box-shadow: 10px 5px 10px black;
+   
+  
+}
+
+.formularios {
+   
+}
+
+h2 {
+
+    text-align: center;
+    font-size: 50px;
+     font-family: 'Quicksand', sans-serif;
+    font-weight: 800;
+}
+
+p {
+
+    font-size: large;
+    color: rgb(0, 0, 0);
+    font-family: Helvetica;
+    border-radius: 20%;
+    font-size: 12px;
+
+
+}
+
+.anime-card {
+    width: 150px;
+    height: 290px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 100px;
+    margin-left: 100px;
+    margin-bottom: 100px;
+    border-radius: 10%;
+    float: left;
+    text-align: center;
+    box-shadow: 10px 5px 10px black;
+    /* animation: card 2s normal forwards; */
+
+}
+.anime-card:hover {
+    animation-name: pop;
+    animation-duration:0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+
+
+}
+
+@keyframes pop {
+	0% {
+        transform: scale(1.2);
+    }
+    
+	100% {
+        transform: scale(1);
+	}
+
+    
+}
+
+
+
+
+
+
+@keyframes card {
+
+
+    0% {
+        opacity: 0%;
+        transform: translate(-400px);
+        
+    }
+
+
+
+    100% {
+        opacity: 100%;
+        transform: translate();
+    }
+
+}
+
+.anime-img {
+    width: 100%;
+    height: 84%;
+    border-radius: 10% 10% 0% 0%;
+
+}
+
+.anime-card2 {
+    width: 100%;
+
+}
+
+a{
+    text-decoration: none;
+}
+
+.score{
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 800;
+}
+
