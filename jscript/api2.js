@@ -58,7 +58,7 @@ async function showAnimes(animeName) {
                
               <div class="anime-card2">
           <p>${anime.title}</p>
-          <input type="number" id="classificacao-${anime.mal_id}" placeholder="Classificação (1-5)">
+        
           <button id="btFav-${anime.mal_id}" class="btFav" onclick="favoritarFilme('${anime.mal_id}', '${anime.title}','${anime.images.jpg.image_url}')">Favoritar</button>
 
          
@@ -139,31 +139,28 @@ const btMostrar = document.getElementById('btn1');
 function favoritarFilme(idFilme, nomeFilme, imageUrl) {
    const btnFav = document.getElementById(`btFav-${idFilme}`);
    const index = favoritarFilmeFav.findIndexById(idFilme);
-   const classificacaoInput = document.getElementById(`classificacao-${idFilme}`);
-   const classificacao = classificacaoInput.value;
+  
 
-   if (classificacao && !isNaN(classificacao) && classificacao >= 1 && classificacao <= 5) {
+ 
       if (index === -1) {
          // Se o filme não está na lista, adicione-o com a classificação
-         favoritarFilmeFav.favoritarFilme(idFilme, nomeFilme, imageUrl, classificacao);
-         console.log(`Filme '${nomeFilme}' favoritado com classificação de ${classificacao} estrelas.`);
+         favoritarFilmeFav.favoritarFilme(idFilme, nomeFilme, imageUrl);
+        
          btnFav.textContent = 'remover';
          btnFav.style.backgroundColor = "rgb(245, 128, 128)";
       } else {
          // Se o filme está na lista, remova-o e depois adicione-o com a nova classificação
          favoritarFilmeFav.deleteByIndex(index);
          favoritarFilmeFav.favoritarFilme(idFilme, nomeFilme, imageUrl, classificacao);
-         console.log(`Filme '${nomeFilme}' removido dos favoritos e adicionado novamente com classificação de ${classificacao} estrelas.`);
+       
          btnFav.textContent = 'remover';
          btnFav.style.backgroundColor = "rgb(245, 128, 128)";
       }
       console.log(favoritarFilmeFav.listaFilme);
-   } else {
-      alert("A classificação deve ser um número entre 1 e 5.");
-   }
+   } 
    // Limpar o campo de classificação após favoritar
-   classificacaoInput.value = '';
-}
+   
+
 // function deletarFilme(idFilme) {
 //    console.log("array antes de deletar");
 //    console.log(favoritarFilmeFav.listaFilme)
@@ -175,7 +172,32 @@ function favoritarFilme(idFilme, nomeFilme, imageUrl) {
 //    console.log(favoritarFilmeFav.listaFilme);
 
 
+function classificarFilme(idFilme, classificacao) {
+   const starRating = document.getElementById(`star-rating-${idFilme}`);
+   const btnFav = document.getElementById(`btFav-${idFilme}`);
+   const index = favoritarFilmeFav.findIndexById(idFilme);
 
+   if (index === -1) {
+      alert("Você precisa favoritar o filme antes de classificá-lo.");
+      return;
+   }
+
+   // Atualize a exibição das estrelas
+   for (let i = 1; i <= 5; i++) {
+      const star = starRating.querySelector(`.star:nth-child(${i})`);
+      if (i <= classificacao) {
+         star.classList.add('rated');
+      } else {
+         star.classList.remove('rated');
+      }
+   }
+
+   // Atualize a classificação no objeto do filme
+   favoritarFilmeFav.listaFilme[index].classificacao = classificacao;
+
+   console.log(`Filme '${favoritarFilmeFav.listaFilme[index].nomeFilme}' classificado com ${classificacao} estrelas.`);
+   // Você pode adicionar aqui o código para atualizar o localStorage se desejar
+}
 
 
 // }
@@ -193,8 +215,14 @@ function atualizarListaFavoritos() {
             <img class="anime-img" src="${filme.image}">
             <div class="anime-card2">
                 <p>${filme.nomeFilme}</p>
-                <p>Classificação: ${filme.classificacao} estrelas</p> <!-- Exibe a classificação -->
              
+                <div class="star-rating" id="star-rating-${filme.id}">
+                <img src="./assets/img/star.png" class="star" onclick="classificarFilme('${filme.id}', 1)">
+                <img src="./assets/img/star.png" class="star" onclick="classificarFilme('${filme.id}', 2)">
+                <img src="./assets/img/star.png" class="star" onclick="classificarFilme('${filme.id}', 3)">
+                <img src="./assets/img/star.png" class="star" onclick="classificarFilme('${filme.id}', 4)">
+                <img src="./assets/img/star.png" class="star" onclick="classificarFilme('${filme.id}', 5)">
+             </div>
                 <button id="btFav-${filme.id}" class="btFav" onclick="deletarFav('${filme.id}')">Remover</button>
             </div>
         </div>
@@ -203,7 +231,7 @@ function atualizarListaFavoritos() {
 }
 
 // ... Seu código existente ...
-
+{/* <p>Classificação: ${filme.classificacao} estrelas</p> <!-- Exibe a classificação --> */}
 // Adicione um ouvinte de eventos ao seu botão "Mostrar Favoritos"
 btMostrar.addEventListener("click", function () {
    atualizarListaFavoritos();

@@ -160,3 +160,21 @@ a{
     border-radius: 30px;
     background-color: rgb(245, 128, 128);
 }
+
+
+.star-rating {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+ }
+ 
+ .star {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-right: 5px;
+ }
+ 
+ .star.rated {
+    filter: brightness(1.2);
+ }
